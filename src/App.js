@@ -11,9 +11,10 @@ import './App.css';
 
 const folders = data.objects.map(item => ({ ...item, size: +item.size }));
 const defaultSize = 50;
+const initialState = findFoldersSlow(defaultSize);
 
 function App() {
-  const [foundFolders, setFoundFolders] = useState([])
+  const [foundFolders, setFoundFolders] = useState(initialState)
   return (
     <div className="app">
       <FPSStats />
