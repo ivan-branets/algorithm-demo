@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider, List, ListItem, Typography } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,36 +7,18 @@ import data from './data';
 import './App.css';
 
 function App() {
-  const marks = [
-    {
-      value: 0,
-      label: '0°C',
-    },
-    {
-      value: 20,
-      label: '20°C',
-    },
-    {
-      value: 37,
-      label: '37°C',
-    },
-    {
-      value: 100,
-      label: '100°C',
-    },
-  ];
-
+  const [count, setCount] = useState(50)
   return (
     <div className="app">
       <Slider
-        defaultValue={30}
+        value={count}
         valueLabelDisplay="on"
         min={0}
         max={1000}
-
+        onChange={(event, value) => setCount(value)}
       />
       <Typography variant="caption">
-        5 items of {numberWithCommas(data.objects.length)} total found
+        {count} items of {numberWithCommas(data.objects.length)} total found
       </Typography>
       <List>
         <ListItem>
