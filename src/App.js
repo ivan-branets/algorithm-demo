@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FixedSizeList } from 'react-window';
+import FPSStats from 'react-fps-stats';
 import { Slider, ListItem, Typography } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,6 +16,7 @@ function App() {
   const [foundFolders, setFoundFolders] = useState(findFoldersSlow(defaultSize))
   return (
     <div className="app">
+      <FPSStats />
       <Slider
         className="slider-slow"
         defaultValue={defaultSize}
