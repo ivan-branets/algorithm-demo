@@ -13,7 +13,7 @@ const folders = data.objects.map(item => ({ ...item, size: +item.size }));
 const defaultSize = 50;
 
 function App() {
-  const [foundFolders, setFoundFolders] = useState(findFoldersSlow(defaultSize))
+  const [foundFolders, setFoundFolders] = useState([])
   return (
     <div className="app">
       <FPSStats />
@@ -51,7 +51,7 @@ function App() {
 
 function Row(props) {
   const { data, index, style } = props;
-  const { name, size } = data[index];
+  const { name, size, sameNameFolders } = data[index];
 
   return <ListItem style={style} key={index}>
     <ListItemIcon>
@@ -59,7 +59,7 @@ function Row(props) {
     </ListItemIcon>
     <ListItemText
       primary={name}
-      secondary={`${size}Mb`}
+      secondary={`${size}Mb | Same Name: ${sameNameFolders && sameNameFolders.length}`}
     />
   </ListItem>
 }
@@ -70,10 +70,14 @@ Row.propTypes = {
 };
 
 function findFoldersSlow(size) {
-  return folders.filter(folder => folder.size === size);
+  return folders.filter(folder => folder.size === size)
+    .map(folder => ({
+      ...folder,
+      sameNameFolders: folders.filter(item => item.name === folder.name)
+    }));
 }
 
-const map = folders.reduce((result, folder) => {
+const mapBySize = folders.reduce((result, folder) => {
   if (result[folder.size] === undefined) {
     result[folder.size] = [];
   }
@@ -82,8 +86,21 @@ const map = folders.reduce((result, folder) => {
   return result;
 }, {});
 
+const mapByName = folders.reduce((result, folder) => {
+  if (result[folder.name] === undefined) {
+    result[folder.name] = [];
+  }
+
+  result[folder.name].push(folder);
+  return result;
+}, {});
+
 function findFoldersFast(size) {
-  return map[size] || [];
+  return (mapBySize[size] || [])
+    .map(folder => ({
+      ...folder,
+      sameNameFolders: mapByName[folder.name]
+    }));
 }
 
 function numberWithCommas(value) {
