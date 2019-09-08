@@ -10,16 +10,28 @@ const folders = data.objects.map(item => ({ ...item, size: +item.size }));
 const defaultSize = 50;
 
 function App() {
-  const [foundFolders, setFoundFolders] = useState(findFolders(defaultSize))
+  const [foundFolders, setFoundFolders] = useState(findFoldersSlow(defaultSize))
   return (
     <div className="app">
       <Slider
+        className="slider-slow"
         defaultValue={defaultSize}
         valueLabelDisplay="on"
         min={0}
         max={1000}
         onChange={(event, value) => {
-          const found = findFolders(value);
+          const found = findFoldersSlow(value);
+          setFoundFolders(found);
+        }}
+      />
+      <Slider
+        className="slider-fast"
+        defaultValue={defaultSize}
+        valueLabelDisplay="on"
+        min={0}
+        max={1000}
+        onChange={(event, value) => {
+          const found = findFoldersSlow(value);
           setFoundFolders(found);
         }}
       />
@@ -45,7 +57,7 @@ function App() {
   );
 }
 
-function findFolders(size) {
+function findFoldersSlow(size) {
   return folders.filter(item => item.size === size);
 }
 

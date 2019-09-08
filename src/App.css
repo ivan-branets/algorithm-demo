@@ -1,3 +1,12 @@
 .app {
   padding: 20%;
 }
+
+.MuiSlider-root.slider-slow {
+  color: #b02a25;
+}
+
+.MuiSlider-root.slider-fast {
+  color: #25b033;
+  padding-top: 50px;
+}
