@@ -6,7 +6,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import data from './data';
 import './App.css';
 
-const folders = data.objects.map(item => ({...item, size: +item.size}));
+const folders = data.objects.map(item => ({ ...item, size: +item.size }));
 const defaultSize = 50;
 
 function App() {
@@ -27,15 +27,19 @@ function App() {
         {foundFolders.length} items of {numberWithCommas(folders.length)} total found
       </Typography>
       <List>
-        <ListItem>
-          <ListItemIcon>
-            <FolderIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Single-line item"
-            secondary="5Mb"
-          />
-        </ListItem>
+        {
+          foundFolders.map(({name, size}, index) =>
+            <ListItem key={index} dense>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={name}
+                secondary={`${size}Mb`}
+              />
+            </ListItem>
+          )
+        }
       </List>
     </div>
   );
