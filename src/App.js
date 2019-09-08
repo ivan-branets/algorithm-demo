@@ -72,7 +72,7 @@ function Row(props) {
     </ListItemIcon>
     <ListItemText
       primary={name}
-      secondary={`${size}Mb | Same Name: ${sameNameFolders && sameNameFolders.length}`}
+      secondary={`${size}Mb | Same Name: ${sameNameFolders.length}`}
     />
   </ListItem>
 }
@@ -112,7 +112,7 @@ function findFoldersFast(size) {
   return (mapBySize[size] || [])
     .map(folder => ({
       ...folder,
-      sameNameFolders: mapByName[folder.name]
+      sameNameFolders: mapByName[folder.name] || []
     }));
 }
 
