@@ -1,5 +1,15 @@
 .app {
-  padding: 20%;
+  padding: 5% 20%;
+}
+
+.MuiTypography-body1 {
+  padding-bottom: 30px;
+}
+
+.MuiSlider-root.slider-slow,
+.MuiSlider-root.slider-fast {
+  padding-top: 50px;
+  padding-bottom: 30px;
 }
 
 .MuiSlider-root.slider-slow {
@@ -8,5 +18,4 @@
 
 .MuiSlider-root.slider-fast {
   color: #25b033;
-  padding-top: 50px;
 }

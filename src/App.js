@@ -18,6 +18,15 @@ function App() {
   return (
     <div className="app">
       <FPSStats />
+      <Typography variant="body1">
+        A demo project to show the importance of algorithms understanding.
+        There are 100,000 files.
+        You specify file size and all files with this size are filtered.
+        File names are repeated, so the amount of files with the same name is shown.
+      </Typography>
+      <Typography variant="h5">
+        Slow Search
+      </Typography>
       <Slider
         className="slider-slow"
         defaultValue={defaultSize}
@@ -29,6 +38,9 @@ function App() {
           setFoundFolders(found);
         }}
       />
+      <Typography variant="h5">
+        Fast Search
+      </Typography>
       <Slider
         className="slider-fast"
         defaultValue={defaultSize}
