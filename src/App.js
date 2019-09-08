@@ -6,19 +6,25 @@ import FolderIcon from '@material-ui/icons/Folder';
 import data from './data';
 import './App.css';
 
+const folders = data.objects.map(item => ({...item, size: +item.size}));
+const defaultSize = 50;
+
 function App() {
-  const [count, setCount] = useState(50)
+  const [foundFolders, setFoundFolders] = useState(findFolders(defaultSize))
   return (
     <div className="app">
       <Slider
-        value={count}
+        defaultValue={defaultSize}
         valueLabelDisplay="on"
         min={0}
         max={1000}
-        onChange={(event, value) => setCount(value)}
+        onChange={(event, value) => {
+          const found = findFolders(value);
+          setFoundFolders(found);
+        }}
       />
       <Typography variant="caption">
-        {count} items of {numberWithCommas(data.objects.length)} total found
+        {foundFolders.length} items of {numberWithCommas(folders.length)} total found
       </Typography>
       <List>
         <ListItem>
@@ -33,6 +39,10 @@ function App() {
       </List>
     </div>
   );
+}
+
+function findFolders(size) {
+  return folders.filter(item => item.size === size);
 }
 
 function numberWithCommas(value) {
